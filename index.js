@@ -23,6 +23,9 @@ app.get('/pow.js', (req, res) => {
 
 app.get('/solve', (req, res) => {
     const {prefix, difficulty} = req.query;
+
+    if(difficulty > 22) res.send(418);
+
     const id = nextJobId++;
     workerCallbacks[id] = (result) => res.send(result);
     pow_worker.postMessage({prefix, difficulty, id});
