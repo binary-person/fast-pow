@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         pow optimizer
-// @namespace    http://tampermonkey.net/
+// @description  made with much love
 // @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://diep.io/
+// @author       Cazka#1820
+// @match        https://diep.io/*
 // @run-at       document-start
 // ==/UserScript==
 
