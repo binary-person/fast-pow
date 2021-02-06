@@ -36,9 +36,9 @@ function solvesDifficulty(hash, difficulty) {
         if ((hash[~~(i / 2)] & (i & 1 ? 0x0f : 0xf0)) !== 0) return false;
     }
 
-    n = difficulty - 4*n;
+    n = difficulty - 4 * n;
     const nibble = (hash[~~(i / 2)] & (i & 1 ? 0x0f : 0xf0)) >> (!(i & 1) ? 4 : 0);
-    if (n !== 0 && (nibble & ((2**n) - 1)) === 0) return false;
+    if (n !== 0 && (nibble & (2 ** n - 1)) !== 2 ** n - 1) return false;
     return true;
 }
 
