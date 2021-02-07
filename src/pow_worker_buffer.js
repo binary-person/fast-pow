@@ -1,6 +1,5 @@
 const { parentPort } = require('worker_threads');
 const crypto = require('crypto');
-
 parentPort.on('message', ({ prefix, difficulty, id }) => {
     parentPort.postMessage({ result: solve(prefix, difficulty), id });
 });
