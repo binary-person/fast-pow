@@ -35,10 +35,9 @@ function increment(buf) {
     }
 }
 function solvesDifficulty(hash, mask1, mask2) {
-    let z = hash[0] << 24 + hash[1] << 16 + hash[2] << 8 + hash[3];
+    let z = (hash[0] << 24) + (hash[1] << 16) + (hash[2] << 8) + hash[3];
 
-    if ((z & mask1) !== 0) return false;
-    if ((z & mask2) !== mask2) return false;
+    if ((z & (mask1 | mask2)) !== mask2) return false;
 
     return true;
 }
