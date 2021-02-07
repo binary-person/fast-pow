@@ -3,7 +3,7 @@ const { Worker } = require('worker_threads');
 const cors = require('cors');
 const app = express();
 
-const pow_worker = new Worker(__dirname + '/src/pow_worker_string.js');
+const pow_worker = new Worker(__dirname + '/src/pow_worker_int.js');
 let nextJobId = 0;
 const workerCallbacks = {};
 
