@@ -8,7 +8,7 @@ parentPort.on('message', ({ prefix, difficulty, id }) => {
 });
 
 function solve(prefix, difficulty) {
-    const buf = Buffer.allocUnsafe(48).fill(48);
+    const buf = new Uint8Array(48).fill(48);
     prefix = encoder.encode(prefix);
 
     buf.set(prefix, 0);
@@ -17,9 +17,10 @@ function solve(prefix, difficulty) {
     const zeroes = difficulty - (difficulty % 4);
     const mask1 = (2 ** zeroes - 1) << (32 - zeroes);
     const mask2 = (2 ** (difficulty - zeroes) - 1) << (zeroes - 4);
+    const mask3 = mask1 | mask2;
 
     while (true) {
-        if (solvesDifficulty(sha1(buf), mask1, mask2)) break;
+        if (solvesDifficulty(sha1(buf), mask2, mask3)) break;
         increment(buf);
     }
     return decoder.decode(buf.subarray(16, 32));
@@ -34,10 +35,10 @@ function increment(buf) {
         buf[--i] += 1;
     }
 }
-function solvesDifficulty(hash, mask1, mask2) {
+function solvesDifficulty(hash, mask2, mask3) {
     let z = (hash[0] << 24) + (hash[1] << 16) + (hash[2] << 8) + hash[3];
 
-    if ((z & (mask1 | mask2)) !== mask2) return false;
+    if ((z & mask3) !== mask2) return false;
 
     return true;
 }
